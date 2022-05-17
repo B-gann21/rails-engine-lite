@@ -15,6 +15,7 @@ RSpec.describe 'The Merchant Index endpoint' do
 
   it 'should return a collection of all merchants in the system' do
     expect(response).to be_successful
+    expect(@merchants.count).to eq 5
 
     @merchants.each do |merchant|
       expect(merchant).to have_key :id
