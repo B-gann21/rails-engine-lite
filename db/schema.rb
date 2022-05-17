@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2022_05_16_204320) do
 
   create_table "items", force: :cascade do |t|
     t.string "name"
-    t.string "description"
+    t.text "description"
     t.float "unit_price"
     t.bigint "merchant_id"
     t.datetime "created_at", null: false

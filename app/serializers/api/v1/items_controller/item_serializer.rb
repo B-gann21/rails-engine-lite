@@ -3,7 +3,7 @@ class Api::V1::ItemsController::ItemSerializer
     {
       data: items.map do |item|
         {
-          id: item.id,
+          id: item.id.to_s,
           type: 'item',
           attributes: {
             name: item.name,
