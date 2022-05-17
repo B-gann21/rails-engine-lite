@@ -48,6 +48,19 @@ RSpec.describe 'Items Index Endpoint' do
     end
   end
 
+  it 'still returns a data object if no items exist' do
+    InvoiceItem.destroy_all
+    Item.destroy_all
+
+    get '/api/v1/items'
+
+    expect(response).to be_successful
+    response_body = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response_body).to have_key :data
+    expect(response_body[:data]).to be_a Array
+  end
+
   it 'does not return dependent data (invoice_items, invoices, etc)' do
     expect(response).to be_successful
 
