@@ -15,7 +15,7 @@ class Api::V1::ItemsController < ApplicationController
     if item.save
       render json: ItemSerializer.item_show(item)
     else
-      render json: ErrorSerializer.creation_errors(item), status: 422
+      render json: ItemErrorSerializer.creation_errors(item), status: 422
     end
   end
 
