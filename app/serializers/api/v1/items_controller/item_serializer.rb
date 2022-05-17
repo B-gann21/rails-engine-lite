@@ -1,5 +1,5 @@
 class Api::V1::ItemsController::ItemSerializer
-  def self.format_items(items)
+  def self.items_index(items)
     {
       data: items.map do |item|
         {
