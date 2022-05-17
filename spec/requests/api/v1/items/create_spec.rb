@@ -70,6 +70,25 @@ RSpec.describe 'Creating an Item' do
       expect(full_response).to have_key :errors
       expect(full_response[:errors]).to be_a Array
       expect(full_response[:errors]).to be_all String
+      expect(full_response[:errors]).to include("Description can't be blank")
+      expect(full_response[:errors]).to include("Unit price can't be blank")
+      expect(full_response[:errors]).to include("Unit price is not a number")
+      expect(full_response[:errors]).to include("Merchant must exist")
+    end
+
+    it 'ignores any attributes that are not allowed' do
+      @item_params[:food] = Faker::Food.dish
+      @item_params[:hacker_encryption] = Faker::String.random
+
+      post '/api/v1/items', params: @item_params
+
+      expect(response).to be_successful
+
+      expect(@item).to_not respond_to(:food)
+      expect(@item_response).to_not have_key(:food)
+
+      expect(@item).to_not respond_to(:hacker_encryption)
+      expect(@item_response).to_not have_key(:hacker_encryption)
     end
   end
 end
