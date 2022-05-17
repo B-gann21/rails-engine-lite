@@ -1,5 +1,5 @@
 class Api::V1::MerchantsController::MerchantSerializer
-  def self.format_merchants(merchants)
+  def self.merchants_index(merchants)
     {
       data: merchants.map do |merchant|
         {
@@ -10,6 +10,18 @@ class Api::V1::MerchantsController::MerchantSerializer
           }
         }
       end
+    }
+  end
+
+  def self.merchant_show(merchant)
+    {
+      data: {
+        id: merchant.id.to_s,
+        type: 'merchant',
+        attributes: {
+          name: merchant.name,
+        }
+      }
     }
   end
 end

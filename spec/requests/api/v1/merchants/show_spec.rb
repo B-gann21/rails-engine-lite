@@ -15,7 +15,7 @@ RSpec.describe 'Merchant Show endpoint' do
     expect(@merchant).to have_key :id
     expect(@merchant[:id]).to be_a String
 
-    expect(@merchant).to have_key[:type]
+    expect(@merchant).to have_key :type
     expect(@merchant[:type]).to eq('merchant')
 
     expect(@merchant).to have_key :attributes
