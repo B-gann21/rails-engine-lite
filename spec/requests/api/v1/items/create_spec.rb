@@ -2,13 +2,15 @@ require 'rails_helper'
 
 RSpec.describe 'Creating an Item' do
   before :each do
+    create_list(:merchant, 5)
+
     @item_params = {
-      'name': 'Tech Deck',
-      'description': 'Use your fingers to skateboard!',
-      'unit_price': 15.99,
-      'merchant_id': Merchant.ids.sample
+      name: 'Tech Deck',
+      description: 'Use your fingers to skateboard!',
+      unit_price: 15.99,
+      merchant_id: Merchant.ids.sample
     }
-    post '/api/v1/items', params: JSON.generate(:item, @item_params)
+    post '/api/v1/items', params: @item_params
 
     full_response = JSON.parse(response.body, symbolize_names: true)
 
@@ -20,7 +22,7 @@ RSpec.describe 'Creating an Item' do
     it 'returns a JSON response with item details' do
       expect(response).to be_successful
       expect(@item_response).to have_key :id
-      expect(@item_response[:id]).to eq(@item.id)
+      expect(@item_response[:id]).to eq(@item.id.to_s)
 
       expect(@item_response).to have_key :type
       expect(@item_response[:type]).to eq('item')
@@ -52,10 +54,10 @@ RSpec.describe 'Creating an Item' do
   context 'when invalid data is entered' do
     it 'returns an error if any attributes are missing' do
       item_params = {
-        'name': 'Tech Deck'
+        name: 'Tech Deck'
       }
 
-      post '/api/v1/items', params: item_params
+      post '/api/v1/items', params: item_params 
 
       full_response = JSON.parse(response.body, symbolize_names: true)
 
@@ -65,7 +67,7 @@ RSpec.describe 'Creating an Item' do
       expect(full_response).to have_key :message
       expect(full_response[:message]).to eq('your query could not be completed')
 
-      expect(full_response).to have_ket :errors
+      expect(full_response).to have_key :errors
       expect(full_response[:errors]).to be_a Array
       expect(full_response[:errors]).to be_all String
     end
