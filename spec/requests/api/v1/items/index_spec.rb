@@ -29,7 +29,7 @@ RSpec.describe 'Items Index Endpoint' do
       expect(item[:id]).to be_a String
 
       expect(item).to have_key :type
-      expect(item[:type]).to be_a String
+      expect(item[:type]).to eq('item')
 
       expect(item).to have_key :attributes
       expect(item[:attributes]).to be_a Hash

@@ -22,7 +22,7 @@ RSpec.describe 'The Merchant Index endpoint' do
       expect(merchant[:id]).to be_a Integer
 
       expect(merchant).to have_key :type
-      expect(merchant[:type]).to be_a String
+      expect(merchant[:type]).to eq('merchant')
 
       expect(merchant).to have_key :attributes
       expect(merchant[:attributes]).to be_a Hash
