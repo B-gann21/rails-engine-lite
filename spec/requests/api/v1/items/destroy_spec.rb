@@ -43,7 +43,7 @@ RSpec.describe 'Destroying an Item' do
       expect(response_body).to have_key :errors
       expect(response_body[:errors]).to be_a Array
       expect(response_body[:errors]).to be_all String
-      expect(response_body[:errors][0]).to eq("no item found with an ID of #{@item.id - 1}")
+      expect(response_body[:errors][0]).to eq("no item found with an ID of #{@item_id + 20}")
     end
   end
 end
