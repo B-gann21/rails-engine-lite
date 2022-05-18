@@ -58,7 +58,7 @@ RSpec.describe 'Updating an Item' do
       full_response = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to_not be_successful
-      expect(response).to have_http_status(422)
+      expect(response).to have_http_status(404)
 
       expect(full_response).to have_key :message
       expect(full_response[:message]).to eq('your query could not be completed')

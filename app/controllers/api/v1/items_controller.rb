@@ -1,5 +1,5 @@
 class Api::V1::ItemsController < ApplicationController
-  before_action :get_item, only: [:show]
+  before_action :get_item, only: [:show, :update]
   rescue_from ::ActiveRecord::RecordNotFound, with: :item_not_found
   
   def index
@@ -17,6 +17,14 @@ class Api::V1::ItemsController < ApplicationController
       render json: ItemSerializer.item_show(item), status: 201
     else
       render json: ItemErrorSerializer.creation_errors(item), status: 422
+    end
+  end
+
+  def update
+    if @item.update(item_params)
+      render json: ItemSerializer.item_show(@item), status: 201
+    else
+      render json: ItemErrorSerializer.creation_errors(@item), status: 404
     end
   end
 
