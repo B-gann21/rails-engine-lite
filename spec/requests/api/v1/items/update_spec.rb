@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Updating and Item' do
+RSpec.describe 'Updating an Item' do
   before :each do
     merchant = create(:merchant)
     item = create(:item, merchant: merchant)
@@ -37,7 +37,7 @@ RSpec.describe 'Updating and Item' do
       expect(@item_response[:attributes][:description]).to eq(@item.description)
 
       expect(@item_response[:attributes]).to have_key :unit_price
-      expect(@item_response[:attributes][:unit_price]).to eq(@item_params[:name])
+      expect(@item_response[:attributes][:unit_price]).to eq(@item_params[:unit_price])
 
       expect(@item_response[:attributes]).to have_key :merchant_id
       expect(@item_response[:attributes][:merchant_id]).to eq(@item.merchant_id)
@@ -55,31 +55,36 @@ RSpec.describe 'Updating and Item' do
 
       patch "/api/v1/items/#{@item.id}", params: @item_params
 
+      full_response = JSON.parse(response.body, symbolize_names: true)
+
       expect(response).to_not be_successful
       expect(response).to have_http_status(422)
 
-      expect(@full_response).to have_key :message
-      expect(@full_response[:message]).to eq('your query could not be completed')
+      expect(full_response).to have_key :message
+      expect(full_response[:message]).to eq('your query could not be completed')
 
-      expect(@full_response).to have_key :errors
-      expect(@full_response[:errors]).to be_a Array
-      expect(@full_response[:errors]).to be_all String
-      expect(@full_response[:errors].count).to eq 1
-      expect(@full_response[:errors][0]).to eq 'Unit price is not a number'
+      expect(full_response).to have_key :errors
+      expect(full_response[:errors]).to be_a Array
+      expect(full_response[:errors]).to be_all String
+      expect(full_response[:errors].count).to eq 1
+      expect(full_response[:errors][0]).to eq 'Unit price is not a number'
     end 
 
     it 'does not update the item' do
-      @item_params[:unit_price] = Faker::Food.dish
+      item_params = {
+        unit_price: Faker::Food.dish
+      }
 
-      expect(@item.unit_price).to_not eq(@item_params[:unit_price])
-      expect(@item.name).to_not eq(@item_params[:name])
+      patch "/api/v1/items/#{@item.id}", params: item_params
+      
+      expect(@item.unit_price).to_not eq(item_params[:unit_price])
     end
 
     it 'ignores any attributes that are not allowed' do
       @item_params[:food] = Faker::Food.dish
       @item_params[:hacker_encryption] = Faker::String.random
 
-      patch '/api/v1/items', params: @item_params
+      patch "/api/v1/items/#{@item.id}", params: @item_params
 
       expect(response).to be_successful
 
