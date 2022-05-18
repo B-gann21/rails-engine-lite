@@ -35,7 +35,7 @@ RSpec.describe "Merchant's Items Endpoint" do
       
       # check if item_1a_data is accurate
       expect(item_1a_data).to have_key :id
-      expect(item_1a_data[:id]).to eq(@item_1a.id)
+      expect(item_1a_data[:id]).to eq(@item_1a.id.to_s)
       expect(item_1a_data).to have_key :type
       expect(item_1a_data[:type]).to eq 'item'
 
@@ -56,7 +56,7 @@ RSpec.describe "Merchant's Items Endpoint" do
       
       # check if item_1b_data is accurate
       expect(item_1b_data).to have_key :id
-      expect(item_1b_data[:id]).to eq(@item_1b.id)
+      expect(item_1b_data[:id]).to eq(@item_1b.id.to_s)
       expect(item_1b_data).to have_key :type
       expect(item_1b_data[:type]).to eq 'item'
 
@@ -77,10 +77,10 @@ RSpec.describe "Merchant's Items Endpoint" do
     end
 
     it 'does not show information on items that do not belong to the merchant' do
-      items_data = @full_resonse[:data]
+      items_data = @full_response[:data]
 
       items_data.each do |item|
-        expect(item[:id]).to_not match @item_2.id
+        expect(item[:id]).to_not match @item_2.id.to_s
         expect(item[:attributes][:name]).to_not match @item_2.name
         expect(item[:attributes][:description]).to_not match @item_2.description
         expect(item[:attributes][:unit_price]).to_not match @item_2.unit_price
@@ -90,7 +90,7 @@ RSpec.describe "Merchant's Items Endpoint" do
 
   context 'when an invalid ID is given' do
     before :each do
-      get "/api/v1/merchants/#{@merchant.id - 1}/items"
+      get "/api/v1/merchants/#{@merchant_1.id - 1}/items"
     end
 
     it 'returns status code 404' do
@@ -107,7 +107,7 @@ RSpec.describe "Merchant's Items Endpoint" do
       expect(response_body).to have_key :errors
       expect(response_body[:errors]).to be_a Array
       expect(response_body[:errors]).to be_all String
-      expect(response_body[:errors][0]).to eq("no merchant found with an ID of #{@merchant.id - 1}")
+      expect(response_body[:errors][0]).to eq("no merchant found with an ID of #{@merchant_1.id - 1}")
     end
   end
 end

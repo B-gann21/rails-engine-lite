@@ -41,8 +41,4 @@ class Api::V1::ItemsController < ApplicationController
   def item_params
     params.permit(:name, :description, :unit_price, :merchant_id)
   end
-
-  def item_not_found
-    render json: ItemErrorSerializer.no_item(params[:id]), status: 404
-  end
 end
