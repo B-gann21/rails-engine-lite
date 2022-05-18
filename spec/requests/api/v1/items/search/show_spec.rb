@@ -11,7 +11,7 @@ RSpec.describe 'Finding a single item' do
   context 'when a record is found' do
     before :each do
       @search_params = { name: 'ring' }
-      require 'pry'; binding.pry  
+
       get '/api/v1/items/find', params: @search_params
 
       @full_response = JSON.parse(response.body, symbolize_names: true)

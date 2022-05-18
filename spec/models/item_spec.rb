@@ -15,4 +15,23 @@ RSpec.describe Item do
     it { should have_many(:transactions).through(:invoices) } 
     it { should have_many(:customers).through(:invoices) } 
   end
+
+  context 'class methods' do
+    describe '.find_first_by_name(name)' do
+      before :each do
+        merchant = create(:merchant)
+        @item_1 = create(:item, name: 'Turing Handbook', merchant: merchant)
+        @item_2 = create(:item, name: 'Ring VHS Tape', merchant: merchant)
+        @item_3 = create(:item, description: 'Great for the summer heat!', merchant: merchant)
+      end
+
+      it 'returns the first item that matches the given name, in alphabetical order' do
+        expect(Item.find_first_by_name('ring')).to eq(@item_2)
+      end
+
+      it 'if no names match, checks the description instead' do
+        expect(Item.find_first_by_name('great')).to eq(@item_3)
+      end
+    end
+  end
 end
