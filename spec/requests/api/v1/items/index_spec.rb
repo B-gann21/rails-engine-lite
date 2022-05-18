@@ -44,7 +44,7 @@ RSpec.describe 'Items Index Endpoint' do
       expect(item[:attributes][:unit_price]).to be_a Float
 
       expect(item[:attributes]).to have_key :merchant_id
-      expect(item[:attributes][:merchant_id]).to be_a Integer
+      expect(item[:attributes][:merchant_id]).to be_a Integer 
     end
   end
 
