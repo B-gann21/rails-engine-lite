@@ -57,6 +57,7 @@ RSpec.describe "Merchant's Items Endpoint" do
       # check if item_1b_data is accurate
       expect(item_1b_data).to have_key :id
       expect(item_1b_data[:id]).to eq(@item_1b.id.to_s)
+
       expect(item_1b_data).to have_key :type
       expect(item_1b_data[:type]).to eq 'item'
 
