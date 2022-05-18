@@ -6,6 +6,7 @@ RSpec.describe 'Finding a single item' do
     @item_1 = create(:item, name: 'Turing Handbook', merchant: merchant)
     @item_2 = create(:item, name: 'Ring VHS Tape', merchant: merchant)
     @item_3 = create(:item, description: 'Great for the summer heat!', merchant: merchant)
+    @item_4 = create(:item, name: 'Alpha', description: 'a tape of a game', merchant: merchant)
   end
 
   context 'when a record is found' do
@@ -36,6 +37,19 @@ RSpec.describe 'Finding a single item' do
       item_response = full_response[:data]
 
       expect(item_response[:id]).to eq(@item_3.id.to_s)
+    end
+
+    it 'if one matches with description and the other with name, returns the name match' do
+      search_params = { name: 'tape' } 
+
+      get '/api/v1/items/find', params: search_params
+
+      expect(response).to be_successful
+
+      full_response = JSON.parse(response.body, symbolize_names: true)
+      item_response = full_response[:data]
+
+      expect(item_response[:id]).to eq(@item_2.id.to_s)
     end
   end
 end
