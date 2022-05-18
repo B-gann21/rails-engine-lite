@@ -6,13 +6,6 @@ RSpec.describe 'Items Index Endpoint' do
       create_list(:item, 3, merchant: merchant)
     end
 
-    create_list(:customer, 5) do |cust|
-      create(:invoice, customer: cust, merchant: Merchant.all.sample) do |invoice|
-        create(:transaction, invoice: invoice)
-        create_list(:invoice_item, 3, invoice: invoice, item: Item.all.sample)
-      end
-    end
-
     get '/api/v1/items'
 
     @full_response = JSON.parse(response.body, symbolize_names: true)
