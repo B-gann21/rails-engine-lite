@@ -1,8 +1,5 @@
-class Api::V1::ItemsController::ItemErrorSerializer
+class Api::V1::ItemsController::ItemErrorSerializer < Api::V1::ApplicationErrorSerializer
   def self.creation_errors(item)
-    {
-      message: 'your query could not be completed',
-      errors: item.errors.full_messages
-    }
+    base_error_with(item.errors.full_messages)
   end
 end
