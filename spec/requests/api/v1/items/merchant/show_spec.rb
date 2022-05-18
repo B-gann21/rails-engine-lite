@@ -31,14 +31,14 @@ RSpec.describe "Item's Merchant endpoint" do
     end
 
     it 'does not return information on other merchants' do
-      expect(@full_response[:data].count).to eq 1
+      expect(@full_response[:data].keys.count(:id)).to eq 1
       expect(@full_response[:data][:id]).to_not eq(@merchant_2.id.to_s)
     end
   end
 
   context 'when an invalid ID is given' do
     before :each do
-      get "/api/v1/items/#{@item_1.id - 1}/merchant"
+      get "/api/v1/items/#{@item.id - 1}/merchant"
     end
 
     it 'returns status code 404' do
@@ -55,7 +55,7 @@ RSpec.describe "Item's Merchant endpoint" do
       expect(response_body).to have_key :errors
       expect(response_body[:errors]).to be_a Array
       expect(response_body[:errors]).to be_all String
-      expect(response_body[:errors][0]).to eq("no item found with an ID of #{@item_1.id - 1}")
+      expect(response_body[:errors][0]).to eq("no item found with an ID of #{@item.id - 1}")
     end
   end
 end
