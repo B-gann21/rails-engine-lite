@@ -14,7 +14,7 @@ class Api::V1::ItemsController < ApplicationController
     item = Item.new(item_params)
 
     if item.save
-      render json: ItemSerializer.item_show(item)
+      render json: ItemSerializer.item_show(item), status: 201
     else
       render json: ItemErrorSerializer.creation_errors(item), status: 422
     end
