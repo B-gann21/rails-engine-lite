@@ -1,6 +1,8 @@
 class Api::V1::ItemsController < ApplicationController
-  before_action :get_item, only: [:show, :update, :destroy]
+  include RecordNotFoundHelper
   rescue_from ::ActiveRecord::RecordNotFound, with: :item_not_found
+
+  before_action :get_item, only: [:show, :update, :destroy]
   
   def index
     render json: ItemSerializer.items_index(Item.all)

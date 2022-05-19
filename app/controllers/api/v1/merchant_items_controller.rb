@@ -1,4 +1,5 @@
-class Api::V1::MerchantItemsController < ApplicationController
+class Api::V1::MerchantItemsController < Api::V1::MerchantsController
+  include RecordNotFoundHelper
   rescue_from ::ActiveRecord::RecordNotFound, with: :merchant_not_found
 
   def index

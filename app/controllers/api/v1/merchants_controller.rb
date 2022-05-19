@@ -1,6 +1,8 @@
 class Api::V1::MerchantsController < ApplicationController
-  before_action :get_merchant, only: [:show]
+  include RecordNotFoundHelper
   rescue_from ::ActiveRecord::RecordNotFound, with: :merchant_not_found
+
+  before_action :get_merchant, only: [:show]
 
   def index
     render json: MerchantSerializer.merchants_index(Merchant.all)
