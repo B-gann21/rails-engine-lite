@@ -3,10 +3,16 @@
 ## A pure backend API with enpoints to create, read, update, and delete Items. 
 - Queries can also be made to find one Item/Merchant by name, find all Items/Merchants by name, and find Items by price.
 
+## Learning goals for this project
+- Expose an API 
+- Use serializers to format JSON responses 
+- Test API exposure 
+- Use SQL and AR to gather data 
+
 ## Technologies/Requirements
 - Ruby version 2.7.4
 - Rails version 5.2.7
-- Uses PostgreSQL
+- PostgreSQL
 
 ## Setup 
 - `git clone` this repository
@@ -15,7 +21,7 @@
   - note: delete the Gemfile.lock file and `bundle install` again if you get any versioning errors
 - `rails db:{drop,create,migrate,seed}` to set up and populate the database
 
-### Youre all set! run `rails s` to start up the server and start making requests.
+Youre all set! run `rails s` to start up the server and start making requests.
 
 ## Making API calls
 
