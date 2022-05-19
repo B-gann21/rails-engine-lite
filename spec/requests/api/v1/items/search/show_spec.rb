@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Finding a single item' do
+RSpec.describe 'Endpoint to Find a single item' do
   before :each do
     merchant = create(:merchant)
     @item_1 = create(:item, name: 'Turing Handbook', merchant: merchant)
@@ -39,7 +39,7 @@ RSpec.describe 'Finding a single item' do
       expect(item_response[:id]).to eq(@item_3.id.to_s)
     end
 
-    it 'if one matches with description and the other with name, returns the name match' do
+    it 'prioritizes a match in the name over a match in the description' do
       search_params = { name: 'tape' } 
 
       get '/api/v1/items/find', params: search_params
@@ -50,6 +50,21 @@ RSpec.describe 'Finding a single item' do
       item_response = full_response[:data]
 
       expect(item_response[:id]).to eq(@item_2.id.to_s)
+    end
+  end
+
+  context 'when a record is not found' do
+    it 'returns an empty data object' do
+      search_params = { name: 'NOMATCHPLEASE' }
+
+      get '/api/v1/items/find', params: search_params
+
+      expect(response).to be_successful
+      full_response = JSON.parse(response.body, symbolize_names: true)
+
+      expect(full_response).to have_key :data
+      expect(full_response[:data]).to be_a Hash
+      expect(full_response[:data]).to be_empty
     end
   end
 end
