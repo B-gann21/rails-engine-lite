@@ -3,7 +3,7 @@ class Api::V1::MerchantsController::MerchantSerializer
     {
       data: merchants.map do |merchant|
         {
-          id: merchant.id,
+          id: merchant.id.to_s,
           type: 'merchant',
           attributes: {
             name: merchant.name,
