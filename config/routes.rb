@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #
   get '/api/v1/items/find', to: 'api/v1/items/name_search#show'
+  get '/api/v1/items/find_all', to: 'api/v1/items/name_search#index'
 
   namespace :api do
     namespace :v1 do
