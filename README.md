@@ -1,7 +1,9 @@
-# README
+# Rails Engine (lite)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- A pure backend API with the following endpoints 
+  - CRUD for Items:
+  - Querying Items/Merchants by name:
+  - Querying Items by price:
 
 Things you may want to cover:
 
