@@ -23,5 +23,14 @@ RSpec.describe Merchant do
     it '.find_first_by_name(name) returns the first case-insensitive, alphabetical match' do
       expect(Merchant.find_first_by_name('ring')).to eq @merchant_2
     end
+
+    it '.find_all_by_name(name) returns all case-insensitive matches' do
+      found_merchants = Merchant.find_all_by_name('ring')
+
+      expect(found_merchants).to be_a Array
+      expect(found_merchants).to include @merchant_1
+      expect(found_merchants).to include @merchant_2
+      expect(found_merchants).to_not include @merchant_3
+    end
   end
 end
