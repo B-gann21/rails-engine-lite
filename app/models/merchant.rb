@@ -6,4 +6,10 @@ class Merchant < ApplicationRecord
   has_many :invoices
   has_many :customers, through: :invoices
   has_many :transactions, through: :invoices 
+
+  def self.find_first_by_name(name)
+    where("name ILIKE '%#{name}%'")
+      .order(:name)
+      .first
+  end
 end

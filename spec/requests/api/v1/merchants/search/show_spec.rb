@@ -20,10 +20,8 @@ RSpec.describe 'Endpoint to find a single merchant' do
       expect(response).to be_successful
       expect(@full_response).to have_key :data
 
-      merchant_data = full_response[:data]
-
+      merchant_data = @full_response[:data]
       expect(merchant_data).to be_a Hash
-      expect(merchant_data.count).to eq 1
 
       expect(merchant_data).to have_key :id
       expect(merchant_data[:id]).to eq(@merchant_2.id.to_s)
