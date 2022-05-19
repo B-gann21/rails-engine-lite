@@ -14,4 +14,5 @@ class ApplicationController < ActionController::API
       render json: Api::V1::MerchantsController::MerchantErrorSerializer.no_merchant(params[:id]), status: 404
     end
   end
+
 end
