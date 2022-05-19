@@ -1,26 +1,23 @@
 # Rails Engine (lite)
 
-- A pure backend API with the following endpoints 
-  - CRUD for Items:
-  - Querying Items/Merchants by name:
-  - Querying Items by price:
+## A pure backend API with enpoints to create, read, update, and delete Items. 
+- Queries can also be made to find one Item/Merchant by name, find all Items/Merchants by name, and find Items by price.
 
-Things you may want to cover:
+## Technologies/Requirements
+- Ruby version 2.7.4
+- Rails version 5.2.7
+- Uses PostgreSQL
 
-* Ruby version
+## Setup 
+- `git clone` this repository
+- `cd` into the project directory (`rails-engine-lite`)
+- `bundle install` to get all the required gems found in the Gemfile 
+  - note: delete the Gemfile.lock file and `bundle install` again if you get any versioning errors
+- `rails db:{drop,create,migrate,seed}` to set up and populate the database
 
-* System dependencies
+### Youre all set! run `rails s` to start up the server and start making requests.
 
-* Configuration
+## Making API calls
 
-* Database creation
+## Running the test suite
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
