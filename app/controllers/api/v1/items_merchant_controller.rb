@@ -1,5 +1,6 @@
-class Api::V1::ItemsMerchantController < ApplicationController
-rescue_from ::ActiveRecord::RecordNotFound, with: :item_not_found
+class Api::V1::ItemsMerchantController < Api::V1::ItemsController
+  include RecordNotFoundHelper
+  rescue_from ::ActiveRecord::RecordNotFound, with: :item_not_found
 
   def index
     @item = Item.find(params[:item_id])
