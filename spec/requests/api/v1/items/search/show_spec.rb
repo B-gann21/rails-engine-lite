@@ -18,7 +18,7 @@ RSpec.describe 'Endpoint to Find a single item' do
       @full_response = JSON.parse(response.body, symbolize_names: true)
     end
 
-    it 'returns the first item that matches by name, based on alphabetical order' do
+    it 'returns the first item that matches by name in case-insensitive, alphabetical order' do
       expect(response).to be_successful
 
       expect(@full_response).to have_key :data
