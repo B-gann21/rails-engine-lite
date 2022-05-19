@@ -7,11 +7,10 @@ RSpec.describe 'Endpoint to find all Items' do
     @item_2 = create(:item, name: 'Ring VHS Tape', merchant: merchant)
     @item_3 = create(:item, name: 'A Guide to Computering', merchant: merchant)
     @item_4 = create(:item, name: 'Diamond', description: 'wedding ring', merchant: merchant)
-    @item_5 = create(:item, name: 'Computer', description: 'Read the guide', merchant: merchant) 
   end
 
   context 'when records are found' do
-    it 'returns JSON data on all items with names or descriptions that match' do
+    it 'returns JSON data on all items with names that match' do
       search_params = { name: 'ring' } 
 
       get '/api/v1/items/find_all', params: search_params
@@ -20,14 +19,14 @@ RSpec.describe 'Endpoint to find all Items' do
 
       expect(response).to be_successful
       expect(full_response).to have_key :data
-      expect(full_repsonse[:data]).to be_an Array
-      expect(full_response[:data].count).to eq 4
+      expect(full_response[:data]).to be_an Array
+      expect(full_response[:data].count).to eq 3
 
       items_data = full_response[:data]
 
       items_data.each do |item|
         expect(item).to have_key :id
-        expect(item[:id]).to_not eq(@item_5.id.to_s)
+        expect(item[:id]).to_not eq(@item_4.id.to_s)
 
         expect(item).to have_key :type
         expect(item[:type]).to eq('item')
@@ -36,13 +35,13 @@ RSpec.describe 'Endpoint to find all Items' do
         expect(item[:attributes]).to be_a Hash
 
         expect(item[:attributes]).to have_key :name
-        expect(item[:attributes][:name]).to_not eq(@item_5.name)
+        expect(item[:attributes][:name]).to_not eq(@item_4.name)
 
         expect(item[:attributes]).to have_key :description
-        expect(item[:attributes][:description]).to_not eq(@item_5.description)
+        expect(item[:attributes][:description]).to_not eq(@item_4.description)
 
         expect(item[:attributes]).to have_key :unit_price
-        expect(item[:attributes][:unit_price]).to_not eq(@item_5.unit_price)
+        expect(item[:attributes][:unit_price]).to_not eq(@item_4.unit_price)
 
         expect(item[:attributes]).to have_key :merchant_id
         expect(item[:attributes][:merchant_id]).to be_a Integer
@@ -60,7 +59,7 @@ RSpec.describe 'Endpoint to find all Items' do
 
       expect(response).to be_successful
 
-      expect(full_resposne).to have_key :data
+      expect(full_response).to have_key :data
       expect(full_response[:data]).to be_an Array
       expect(full_response[:data]).to be_empty
     end
