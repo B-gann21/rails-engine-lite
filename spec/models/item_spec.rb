@@ -22,7 +22,8 @@ RSpec.describe Item do
         merchant = create(:merchant)
         @item_1 = create(:item, name: 'Turing Handbook', merchant: merchant)
         @item_2 = create(:item, name: 'Ring VHS Tape', merchant: merchant)
-        @item_3 = create(:item, description: 'Great for the summer heat!', merchant: merchant)
+        @item_3 = create(:item, description: 'Great guide to computering', merchant: merchant)
+        @item_4 = create(:item, name: 'Taco', description: 'does not include the query', merchant: merchant)
       end
 
       it 'returns the first item that matches the given name, in alphabetical order' do
@@ -32,6 +33,15 @@ RSpec.describe Item do
       it 'if no names match, checks the description instead' do
         expect(Item.find_first_by_name('great')).to eq(@item_3)
       end
+    end
+
+    it '.find_all_by_name(name) returns all items with names or descriptions that match' do
+      found_items = Item.find_all_by_name('ring')
+
+      expect(found_items).to include(@item_1)
+      expect(found_items).to include(@item_2)
+      expect(found_items).to include(@item_3)
+      expect(found_items).to_not include(@item_4)
     end
   end
 end
