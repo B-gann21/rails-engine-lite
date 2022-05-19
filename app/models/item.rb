@@ -10,8 +10,10 @@ class Item < ApplicationRecord
   has_many :customers, through: :invoices
 
   def self.find_first_by_name(name)
-    if !name_check(name).nil?
-      return name_check(name)
+    validator = name_check(name)
+
+    if validator
+      return validator
     else
       return description_check(name)
     end

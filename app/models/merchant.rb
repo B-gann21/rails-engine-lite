@@ -8,8 +8,12 @@ class Merchant < ApplicationRecord
   has_many :transactions, through: :invoices 
 
   def self.find_first_by_name(name)
+    find_all_by_name(name).first
+  end
+
+  def self.find_all_by_name(name)
     where("name ILIKE '%#{name}%'")
       .order(:name)
-      .first
+      .compact
   end
 end
