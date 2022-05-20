@@ -9,6 +9,23 @@ class Item < ApplicationRecord
   has_many :transactions, through: :invoices
   has_many :customers, through: :invoices
 
+  def self.find_first_by_params(params)
+    if (params[:name] && (params[:max_price] || params[:min_price]))
+      nil 
+    elsif (params[:name] && (!params[:max_price] && !params[:min_price]))
+      find_first_by_name(params[:name])
+
+    elsif (params[:max_price] && params[:min_price])
+      find_first_by_price_range(params[:min_price], params[:max_price])
+
+    elsif (params[:min_price] && !params[:max_price])
+      find_first_by_min_price(params[:min_price])
+
+    elsif (!params[:min_price] && params[:max_price])
+      find_first_by_max_price(params[:max_price])
+    end
+  end
+
   def self.find_first_by_name(name)
     validator = name_check(name)
 
