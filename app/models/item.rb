@@ -24,6 +24,25 @@ class Item < ApplicationRecord
       .order(:name)
   end
 
+  def self.find_first_by_min_price(price)
+    where("unit_price > #{price}")
+      .order(:name)
+      .first
+  end
+
+  def self.find_first_by_max_price(price)
+    where("unit_price < #{price}")
+      .order(:name)
+      .first
+  end
+
+  def self.find_first_by_price_range(min, max)
+    where("unit_price > #{min}")
+      .where("unit_price < #{max}")
+      .order(:name)
+      .first
+  end
+
   private
 
   def self.name_check(name)

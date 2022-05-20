@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Endpoint to find all Items' do
+RSpec.describe 'Endpoint to find all Items by name' do
   before :each do
     merchant = create(:merchant)
     @item_1 = create(:item, name: 'Turing Handbook', merchant: merchant)
