@@ -41,27 +41,27 @@ RSpec.describe Item do
       expect(found_items).to include(@item_2)
       expect(found_items).to_not include(@item_3)
     end
+  end
 
-    describe 'finding an Item by price' do
-      before :each do
-        merchant = create(:merchant)
-        @item_1 = create(:item, name: 'Turing Handbook', unit_price: 50.50, merchant: merchant)
-        @item_2 = create(:item, name: 'Ring VHS Tape', unit_price: 60,  merchant: merchant)
-        @item_3 = create(:item, name: 'Something Special', unit_price: 50.01, merchant: merchant)
-        @item_4 = create(:item, name: 'Alpha', unit_price: 75, merchant: merchant)
-      end
+  describe 'finding an Item by price' do
+    before :each do
+      merchant = create(:merchant)
+      @item_1 = create(:item, name: 'Turing Handbook', unit_price: 50.50, merchant: merchant)
+      @item_2 = create(:item, name: 'Ring VHS Tape', unit_price: 60,  merchant: merchant)
+      @item_3 = create(:item, name: 'Something Special', unit_price: 50.01, merchant: merchant)
+      @item_4 = create(:item, name: 'Alpha', unit_price: 75, merchant: merchant)
+    end
 
-      it '.find_first_by_min_price(price) finds all items that match, sorts alphabetically by name, and returns the first' do
-        expect(Item.find_first_by_min_price(50.25)).to eq @item_4
-      end
+    it '.find_first_by_min_price(price) finds all items that match, sorts alphabetically by name, and returns the first' do
+      expect(Item.find_first_by_min_price(50.25)).to eq @item_4
+    end
 
-      it '.find_first_by_max_price(price) finds all items that match, sorts alphabetically by name, and retunrs the first' do
-        expect(Item.find_first_by_max_price(70)).to eq @item_2
-      end
+    it '.find_first_by_max_price(price) finds all items that match, sorts alphabetically by name, and retunrs the first' do
+      expect(Item.find_first_by_max_price(70)).to eq @item_2
+    end
 
-      it '.find_first_by_price_range(min, max) finds all items that match, sorts slphabeticallyby name, and returns the first' do
-        expect(Item.find_first_by_price_range(60, 80)).to eq(@item_4)
-      end
+    it '.find_first_by_price_range(min, max) finds all items that match, sorts slphabeticallyby name, and returns the first' do
+      expect(Item.find_first_by_price_range(60, 80)).to eq(@item_4)
     end
   end
 end

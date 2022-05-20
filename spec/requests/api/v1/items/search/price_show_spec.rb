@@ -90,19 +90,19 @@ RSpec.describe 'Endpoint to find an item by price' do
       item_data = @full_response[:data]
 
       expect(item_data).to have_key :id
-      expect(item_data[:id]).to eq @item_4.id.to_s
+      expect(item_data[:id]).to eq @item_2.id.to_s
 
       expect(item_data).to have_key :attributes
       expect(item_data[:attributes]).to be_a Hash
 
       expect(item_data[:attributes]).to have_key :name
-      expect(item_data[:attributes][:name]).to eq @item_4.name
+      expect(item_data[:attributes][:name]).to eq @item_2.name
 
       expect(item_data[:attributes]).to have_key :description
-      expect(item_data[:attributes][:description]).to eq @item_4.description
+      expect(item_data[:attributes][:description]).to eq @item_2.description
 
       expect(item_data[:attributes]).to have_key :unit_price
-      expect(item_data[:attributes][:unit_price]).to eq @item_4.unit_price
+      expect(item_data[:attributes][:unit_price]).to eq @item_2.unit_price
     end
   end
 
