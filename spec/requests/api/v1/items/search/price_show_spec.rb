@@ -112,12 +112,15 @@ RSpec.describe 'Endpoint to find an item by price' do
 
       get '/api/v1/items/find', params: search_params
 
-      expect(response).to be_successful
+      expect(response).to_not be_successful
       full_response = JSON.parse(response.body, symbolize_names: true)
 
-      expect(full_response).to have_key :data
-      expect(full_response[:data]).to be_a Hash
-      expect(full_response[:data]).to be_empty
+      expect(full_response).to have_key :message
+      expect(full_response[:message]).to eq 'your query could not be completed'
+
+      expect(full_response).to have_key :errors
+      expect(full_response[:errors]).to be_an Array
+      expect(full_response[:errors]).to include 'you can not search for both name and price' 
     end
   end
 

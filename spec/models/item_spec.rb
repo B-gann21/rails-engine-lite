@@ -43,7 +43,7 @@ RSpec.describe Item do
     end
   end
 
-  describe 'finding an Item by price' do
+  context 'class methods to find an item by price' do
     before :each do
       merchant = create(:merchant)
       @item_1 = create(:item, name: 'Turing Handbook', unit_price: 50.50, merchant: merchant)
@@ -62,6 +62,38 @@ RSpec.describe Item do
 
     it '.find_first_by_price_range(min, max) finds all items that match, sorts slphabeticallyby name, and returns the first' do
       expect(Item.find_first_by_price_range(60, 80)).to eq(@item_4)
+    end
+
+    describe '.find_first_by_params(params)' do
+      it 'you can not send name with price in query params' do
+        params = { name: 'ring', min_price: 50 }
+
+        expect(Item.find_first_by_params(params)).to be_falsey
+      end
+
+      it 'returns .find_first_by_name(name) if params only has name' do
+        params = { name: 'ring' } 
+
+        expect(Item.find_first_by_params(params)).to eq(Item.find_first_by_name('ring'))
+      end
+
+      it 'returns .find_first_by_max_price(price) if just max price is given' do
+        params = { max_price: 70 } 
+
+        expect(Item.find_first_by_params(params)).to eq(Item.find_first_by_max_price(70))
+      end
+
+      it 'returns .find_first_by_min_price(price) if just min price is given' do
+        params = { min_price: 50 } 
+
+        expect(Item.find_first_by_params(params)).to eq(Item.find_first_by_min_price(50))
+      end
+
+      it 'returns .find_first_by_price_range(range) if both min and max price are given' do
+        params = { min_price: 60, max_price: 80 } 
+
+        expect(Item.find_first_by_params(params)).to eq(Item.find_first_by_price_range(60, 80))
+      end
     end
   end
 end
