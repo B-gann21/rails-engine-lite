@@ -9,7 +9,7 @@ RSpec.describe 'The Merchant Index endpoint' do
     get '/api/v1/merchants'
 
     @full_response = JSON.parse(response.body, symbolize_names: true)
- 
+
     @merchants = @full_response[:data]
   end
 
@@ -29,6 +29,10 @@ RSpec.describe 'The Merchant Index endpoint' do
 
       expect(merchant[:attributes]).to have_key :name
       expect(merchant[:attributes][:name]).to be_a String
+
+      expect(merchant[:attributes]).to_not have_key :created_at
+      expect(merchant[:attributes]).to_not have_key :updated_at
+      # test the serializer is filtering unwanted attributes (created_at, updated_at)
     end
   end
 
