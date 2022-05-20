@@ -142,7 +142,7 @@ RSpec.describe 'Endpoint to find an item by price' do
       expect(@full_response).to have_key :errors
       expect(@full_response[:errors]).to be_an Array
       expect(@full_response[:errors].length).to eq 1
-      expect(@full_response[:errors][0]).to eq 'you can not query for name and price'
+      expect(@full_response[:errors][0]).to eq 'you can not search for both name and price'
     end
   end
 end
