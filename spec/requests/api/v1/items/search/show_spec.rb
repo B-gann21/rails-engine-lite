@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Endpoint to Find a single item' do
+RSpec.describe 'Endpoint to Find a single item by name' do
   before :each do
     merchant = create(:merchant)
     @item_1 = create(:item, name: 'Turing Handbook', merchant: merchant)
