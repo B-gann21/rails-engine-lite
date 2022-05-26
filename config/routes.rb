@@ -19,6 +19,7 @@ Rails.application.routes.draw do
         resources :merchant, only: [:index], controller: :items_merchant
       end
 
+      get '/revenue', to: 'revenue#index'
       namespace :revenue do
         resources :merchants, only: [:index]
       end

@@ -34,4 +34,15 @@ class Merchant < ApplicationRecord
       .group(:id)
       .limit(quantity)
   end
+
+  def self.total_revenue_within_date(start_date, end_date)
+   joins(invoices: [:invoice_items, :transactions])
+      .where(invoices: {status: 'shipped'}, transactions: {result: 'success'})
+      .where("transactions.updated_at > '#{start_date}'::date") 
+      .where("transactions.updated_at < '#{end_date}'::date")
+      .group(:id)
+      .sum("invoice_items.quantity * invoice_items.unit_price")
+
+    require 'pry'; binding.pry  
+  end
 end
