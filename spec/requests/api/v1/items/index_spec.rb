@@ -38,6 +38,8 @@ RSpec.describe 'Items Index Endpoint' do
 
       expect(item[:attributes]).to have_key :merchant_id
       expect(item[:attributes][:merchant_id]).to be_a Integer 
+
+      # make this into a helper method!
     end
   end
 
