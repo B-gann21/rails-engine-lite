@@ -37,6 +37,7 @@ jobs:
       - name: Set up database schema
         run: |
           bin/rails db:schema:load
+          bundle install
           gem update --system
       # Add or replace test runners here
       - name: Run tests
