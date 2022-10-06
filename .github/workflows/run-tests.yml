@@ -38,8 +38,7 @@ jobs:
         run: |
           bin/rails db:schema:load
           gem update --system 3.0.8 && gem update --system
-          sudo gem cleanup
           bundle install
       # Add or replace test runners here
       - name: Run tests
-        run: bin/bundle exec rspec
+        run: bundle exec rspec
