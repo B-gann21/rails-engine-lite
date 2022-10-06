@@ -40,4 +40,4 @@ jobs:
           gem update --system
       # Add or replace test runners here
       - name: Run tests
-        run: bin/rspec spec
+        run: bin/rspec
