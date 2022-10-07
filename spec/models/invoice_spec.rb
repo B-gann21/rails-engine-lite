@@ -13,7 +13,7 @@ RSpec.describe Invoice do
     it { should have_many(:items).through(:invoice_items) } 
   end
   
-  it 'is a test to check how gh actions works' do
+  xit 'is a test to check how gh actions works' do
     expect(1+1).to eq 2
   end
 end
